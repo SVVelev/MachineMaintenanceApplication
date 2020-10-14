@@ -1,0 +1,64 @@
+﻿@using MachineMaintenanceApp.Web.ViewModels.Administration.WeeklyChecks.Details
+@using MachineMaintenanceApp.Data.Common.Helpers
+@using MachineMaintenanceApp.Data.Models.Enums
+@model AdminWeeklyDetailsViewModel
+@{
+    ViewData["Title"] = "Details";
+
+    var myEnum = EnumHelper<WeeklyCheckType>.GetDisplayValue(Model.Type);
+}
+
+
+<h1 class="text-center">Details</h1>
+<hr />
+<div>
+    <div class="form-group">
+        <label asp-for="Type"></label>
+        <input value="@myEnum" readonly class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="UserLastName"></label>
+        <input asp-for="UserLastName" readonly class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="MachineInventoryNumber"></label>
+        <input asp-for="MachineInventoryNumber" readonly class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Notes"></label>
+        <input asp-for="Notes" readonly class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="CreatedOn"></label>
+        <time datetime="@Model.CreatedOn.ToString("O")" readonly class="form-control"></time>
+    </div>
+
+    <div class="text-center">
+        <a href="/Administration/WeeklyCheck/WeeklyChecksPage/@Model.MachineId">
+            <input type="submit" value="Back" class="btn btn-secondary" />
+        </a>
+
+        @if (Model.IsDeleted == true)
+        {
+            <a href="/Administration/WeeklyCheck/Undelete/@Model.Id">
+                <input type="submit" value="Undelete" class="btn btn-success" />
+            </a>
+        }
+        else
+        {
+            <a href="/Administration/WeeklyCheck/Delete/@Model.Id">
+                <input type="submit" value="Delete" class="btn btn-danger" />
+            </a>
+
+            <a href="/Administration/WeeklyCheck/Edit/@Model.Id">
+                <input type="submit" value="Edit" class="btn btn-warning" />
+            </a>
+        }
+    </div>
+</div>
+
+
+
+
+
+

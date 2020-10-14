@@ -1,0 +1,77 @@
+﻿@using MachineMaintenanceApp.Web.ViewModels.PlannedRepairs.Details
+@using MachineMaintenanceApp.Data.Common.Helpers 
+@using MachineMaintenanceApp.Data.Models
+@using Microsoft.AspNetCore.Identity
+@using MachineMaintenanceApp.Data.Models.Enums
+@inject UserManager<ApplicationUser> userManager
+@model PlannedRepairsDetailsViewModel
+@{
+    ViewData["Title"] = "Details";
+}
+
+@{
+
+    var nextRepair = (Model.EndTime.AddDays(Model.RepairsIntervalDays)).ToString("MM/dd/yyyy");
+    ApplicationUser currentUser = await this.userManager.GetUserAsync(this.User);
+
+    var myEnum = EnumHelper<RepairType>.GetDisplayValue(Model.Type);
+}
+
+<h1 class="text-center">Details</h1>
+<hr />
+<div>
+    <div class="form-group">
+        <label asp-for="Type"></label>
+        <input value="@myEnum" readonly class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="StartTime"></label>
+        <time datetime="@Model.StartTime.ToString("O")" readonly class="form-control"></time>
+    </div>
+    <div class="form-group">
+        <label asp-for="EndTime"></label>
+        <time datetime="@Model.EndTime.ToString("O")" readonly class="form-control"></time>
+    </div>
+    <div class="form-group">
+        <label asp-for="RepairsIntervalDays"></label>
+        <input asp-for="RepairsIntervalDays" readonly class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="MachineInventoryNumber"></label>
+        <input asp-for="MachineInventoryNumber" readonly class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="UserLastName"></label>
+        <input asp-for="UserLastName" readonly class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="PartNumber"></label>
+        <input asp-for="PartNumber" readonly class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="duration">Next Repair</label>
+        <input type="text" name="nextRepair" value="@nextRepair" readonly class="form-control">
+    </div>
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description" readonly class="form-control"></textarea>
+    </div>
+    <div class="text-center">
+        <a href="/Machine/Details/@Model.MachineId">
+            <input type="submit" value="Back" class="btn btn-secondary" />
+        </a>
+        @if (currentUser.Id == Model.UserId)
+        {
+            <a href="/PlannedRepairs/Edit/@Model.Id">
+                <input type="submit" value="Edit" class="btn btn-warning" />
+            </a>
+
+            <a href="/PlannedRepairs/Delete/@Model.Id">
+                <input type="submit" value="Delete" class="btn btn-danger" />
+            </a>
+        }
+
+    </div>
+</div>
+
+

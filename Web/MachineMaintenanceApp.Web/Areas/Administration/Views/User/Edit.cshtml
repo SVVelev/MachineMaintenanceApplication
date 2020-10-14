@@ -1,0 +1,70 @@
+﻿@using MachineMaintenanceApp.Web.ViewModels.Administration.Users.Edit
+@using MachineMaintenanceApp.Data.Models.Enums
+@using MachineMaintenanceApp.Services.Data.Comapnies
+@inject ICompanyService companyService
+@model AdminUserEditViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit company</h1>
+<hr />
+<div class="text-center">
+    <div>
+        <form asp-area="Administration" asp-controller="User" asp-action="Edit" method="post"
+              enctype="multipart/form-data">
+
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="FirstName"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhoneNumber"></label>
+                <input asp-for="PhoneNumber" class="form-control" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CardNumber"></label>
+                <input asp-for="CardNumber" class="form-control" />
+                <span asp-validation-for="CardNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageUrl"></label>
+                <input asp-for="ImageUrl" class="form-control" />
+                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Username"></label>
+                <input asp-for="Username" class="form-control" />
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Position"></label>
+                <select asp-for="Position" class="form-control" asp-items="@Html.GetEnumSelectList<PositionType>()"></select>
+                <span asp-validation-for="Position" class="text-danger"></span>
+            </div>
+
+            <input type="submit" value="Edit" class="btn btn-success" />
+        </form>
+        <br />
+    </div>
+    <div>
+        <a href="/Administration/User/Details/@Model.Id">
+            <input type="submit" value="Cancel" class="btn btn-secondary" />
+        </a>
+    </div>
+</div>
+
+
+
+
+

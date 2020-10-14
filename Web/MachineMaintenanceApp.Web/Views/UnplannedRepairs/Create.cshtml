@@ -1,0 +1,56 @@
+﻿@using MachineMaintenanceApp.Web.ViewModels.UnplannedRepairs.Create
+@using MachineMaintenanceApp.Data.Models.Enums
+@using MachineMaintenanceApp.Services.Data.SpareParts
+@inject ISparePartsService sparePartService
+@model UnplannedRepairsCreateInputViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1 class="text-center">Create Unplanned repair</h1>
+<hr />
+<div class="text-center">
+    <div>
+        <form asp-controller="UnplannedRepairs" asp-action="Create" method="post"
+              enctype="multipart/form-data">
+
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Type"></label>
+                <select asp-for="Type" class="form-control" asp-items="@Html.GetEnumSelectList<RepairType>()"></select>
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StartTime"></label>
+                <input asp-for="StartTime" class="form-control" />
+                <span asp-validation-for="StartTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EndTime"></label>
+                <input asp-for="EndTime" class="form-control" />
+                <span asp-validation-for="EndTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PartNumber"></label>
+                <select asp-for="PartNumber" class="form-control" asp-items="sparePartService.GetInvenroryNumbers(Model.MachineId)"></select>
+                <span asp-validation-for="PartNumber" class="text-danger"></span>
+            </div>
+
+            <input type="submit" value="Create" class="btn btn-success" />
+        </form>
+        <br />
+    </div>
+    <div>
+        <a href="/Machine/Details/@Model.MachineId">
+            <input type="submit" value="Cancel" class="btn btn-secondary" />
+        </a>
+    </div>
+</div>
+

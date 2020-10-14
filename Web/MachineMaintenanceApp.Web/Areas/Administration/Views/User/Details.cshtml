@@ -1,0 +1,71 @@
+﻿@using MachineMaintenanceApp.Web.ViewModels.Administration.Users.Details
+@model AdminUserDetailViewModel
+@{
+    ViewData["Title"] = "Details";
+
+}
+    <div>
+        <div class="form-group text-center">
+            <img src="@Model.ImageUrl" height="500" width="700" class="img-fluid">
+        </div>
+        <div class="form-group">
+            <label asp-for="FirstName"></label>
+            <input asp-for="FirstName" readonly class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="LastName"></label>
+            <input asp-for="LastName" readonly class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="CardNumber"></label>
+            <input asp-for="CardNumber" readonly class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Position"></label>
+            <input asp-for="Position" readonly class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Username"></label>
+            <input asp-for="Username" readonly class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Email"></label>
+            <input asp-for="Email" readonly class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="PhoneNumber"></label>
+            <input asp-for="PhoneNumber" readonly class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="CreatedOn"></label>
+            <time datetime="@Model.CreatedOn.ToString("O")" readonly class="form-control"></time>
+        </div>
+    </div>
+<br />
+<div class="text-center">
+    <a href="/Administration/User/UsersPage/@Model.CompanyId">
+        <input type="submit" value="Back" class="btn btn-secondary" />
+    </a>
+
+    <a href="/Administration/User/Edit/@Model.Id">
+        <input type="submit" value="Edit" class="btn btn-warning" />
+    </a>
+
+    <a href="/Administration/User/ResetPassword/@Model.Id">
+        <input type="submit" value="Reset Password" class="btn btn-outline-dark" />
+    </a>
+    @if (Model.IsDeleted == true)
+    {
+        <a href="/Administration/User/Undelete/@Model.Id">
+            <input type="submit" value="Undelete" class="btn btn-success" />
+        </a>
+    }
+    else
+    {
+        <a href="/Administration/User/Delete/@Model.Id">
+            <input type="submit" value="Delete" class="btn btn-danger" />
+        </a>
+    }
+</div>
+
+

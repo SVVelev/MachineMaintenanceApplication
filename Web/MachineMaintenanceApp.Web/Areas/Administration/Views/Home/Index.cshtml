@@ -1,0 +1,52 @@
+﻿@using MachineMaintenanceApp.Web.ViewModels.Administration.Home
+@model AdministrationIndexViewModel
+@{
+    ViewData["Title"] = "AdminHome";
+
+}
+
+<div class="text-center">
+    <h1 class="display-4">Admin Page</h1>
+</div>
+<hr />
+
+<div style="padding: 5%;">
+    <table class="table">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">Company name</th>
+                <th scope="col">Deleted ?</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var company in Model.Companies)
+            {
+                <tr>
+                    <th scope="row">@company.Name</th>
+                    <td>@company.IsDeleted</td>
+                    <td scope="row"><a asp-area="Administration" asp-controller="Company" asp-action="Details" asp-route-id="@company.Id">Details</a></td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+
+<div class="text-center">
+
+    <a href="/">
+        <input type="submit" value="Back" class="btn btn-secondary" />
+    </a>
+
+    <a href="/Administration/Company/Create">
+        <input type="submit" value="Create Company" class="btn btn-primary" />
+    </a>
+
+</div>
+
+
+
+
+
+

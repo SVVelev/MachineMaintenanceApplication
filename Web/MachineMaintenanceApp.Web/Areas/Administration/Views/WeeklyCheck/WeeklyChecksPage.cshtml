@@ -1,0 +1,105 @@
+﻿@using MachineMaintenanceApp.Web.ViewModels.Administration.WeeklyChecks.WeeklyCheckPage
+@using MachineMaintenanceApp.Data.Common.Helpers
+@using MachineMaintenanceApp.Data.Models.Enums
+@model AdminPageWeeklyCheckViewModel
+@{
+    ViewData["Title"] = "WeeklyCheckPage";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Weekly Checks</h1>
+</div>
+<hr />
+
+<div style="padding: 5%;">
+    <table class="table">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">Type</th>
+                <th scope="col">Created On</th>
+                <th scope="col">Created By</th>
+                <th scope="col">Machine Number</th>
+                <th scope="col">Deleted ?</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var check in Model.WeeklyChecks)
+            {
+                var myEnum = EnumHelper<WeeklyCheckType>.GetDisplayValue(check.Type);
+                <tr>
+                    <th scope="row">@myEnum</th>
+                    <td><time datetime="@check.CreatedOn.ToString("O")"></time></td>
+                    <td>@check.UserLastName</td>
+                    <td>@check.MachineInventoryNumber</td>
+                    <td>@check.IsDeleted</td>
+                    <td scope="row"><a asp-area="Administration" asp-controller="WeeklyCheck" asp-action="Details" asp-route-id="@check.Id">Details</a></td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+
+<nav>
+    <ul class="pagination justify-content-center">
+        @if (this.Model.CurrentPage == 1)
+        {
+            <li class="page-item disabled">
+                <a class="page-link" href="#">Previous</a>
+            </li>
+        }
+        else
+        {
+            <li class="page-item">
+                <a class="page-link"
+                   asp-area="Administration"
+                   asp-controller="WeeklyCheck"
+                   asp-action="WeeklyChecksPage"
+                   asp-route-id="@this.Model.MachineId"
+                   asp-route-page="@(this.Model.CurrentPage - 1)">Previous</a>
+            </li>
+        }
+
+        @for (int i = 1; i <= this.Model.PagesCount; i++)
+        {
+            var active = i == this.Model.CurrentPage ? "active" : string.Empty;
+            <li class="page-item @active">
+                <a class="page-link"
+                   asp-area="Administration"
+                   asp-controller="WeeklyCheck"
+                   asp-action="WeeklyChecksPage"
+                   asp-route-id="@this.Model.MachineId"
+                   asp-route-page="@i">@i</a>
+            </li>
+        }
+
+        @if (this.Model.CurrentPage == this.Model.PagesCount)
+        {
+            <li class="page-item disabled">
+                <a class="page-link" href="#">Next</a>
+            </li>
+        }
+        else
+        {
+            <li class="page-item">
+                <a class="page-link"
+                   asp-area="Administration"
+                   asp-controller="WeeklyCheck"
+                   asp-action="WeeklyChecksPage"
+                   asp-route-id="@this.Model.MachineId"
+                   asp-route-page="@(this.Model.CurrentPage + 1)">Next</a>
+            </li>
+        }
+    </ul>
+</nav>
+
+<div class="text-center">
+
+    <a href="/Administration/Machine/Details/@Model.MachineId">
+        <input type="submit" value="Return" class="btn btn-secondary" />
+    </a>
+</div>
+
+
+

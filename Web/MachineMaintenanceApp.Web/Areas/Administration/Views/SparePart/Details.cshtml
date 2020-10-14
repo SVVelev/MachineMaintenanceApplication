@@ -1,0 +1,71 @@
+﻿@using MachineMaintenanceApp.Web.ViewModels.Administration.SpareParts.Details
+@model AdminSparePartDetailsViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+<hr />
+<div>
+    <div class="form-group text-center">
+        <img src="@Model.ImageUrl" height="500" width="700" class="img-fluid">
+    </div>
+    <div class="form-group">
+        <label asp-for="Type"></label>
+        <input asp-for="Type" readonly class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="SerialNumber"></label>
+        <input asp-for="SerialNumber" readonly class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="InventoryNumber"></label>
+        <input asp-for="InventoryNumber" readonly class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Manufacturer"></label>
+        <input asp-for="Manufacturer" readonly class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description" readonly class="form-control"></textarea>
+    </div>
+    <div class="form-group">
+        <label asp-for="Quantity"></label>
+        <input asp-for="Quantity" readonly class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="MachineInventoryNumber"></label>
+        <input asp-for="MachineInventoryNumber" readonly class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="UserLastName"></label>
+        <input asp-for="UserLastName" readonly class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="CreatedOn"></label>
+        <time datetime="@Model.CreatedOn.ToString("O")" readonly class="form-control"></time>
+    </div>
+</div>
+
+<div class="text-center">
+
+    <a href="/Administration/SparePart/SparePartsPage/@Model.UserCompanyId">
+        <input type="submit" value="Back" class="btn btn-secondary" />
+    </a>
+    @if (Model.IsDeleted != true)
+    {
+        <a href="/Administration/SparePart/Undelete/@Model.Id">
+            <input type="submit" value="Undelete" class="btn btn-success" />
+        </a>
+
+        <a href="/Administration/SparePart/Edit/@Model.Id?companyId=@ViewBag.CompanyId">
+            <input type="submit" value="Edit" class="btn btn-warning" />
+        </a>
+    }
+
+</div>
+
+
+
+
+

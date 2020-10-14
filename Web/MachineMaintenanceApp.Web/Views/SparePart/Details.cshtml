@@ -1,0 +1,119 @@
+﻿@using MachineMaintenanceApp.Web.ViewModels.SpareParts.Details
+@using MachineMaintenanceApp.Data.Models
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> userManager
+@model DetailsSparePartsViewModel
+
+@{
+    ViewData["Title"] = "Details";
+    ApplicationUser currentUser = await this.userManager.GetUserAsync(this.User);
+}
+<h1 class="text-center">Details</h1>
+<hr />
+<div>
+    <div class="form-group text-center">
+        <img src="@Model.ImageUrl" height="500" width="700" class="img-fluid">
+    </div>
+    <div class="form-group">
+        <label asp-for="Type"></label>
+        <input asp-for="Type" readonly class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="SerialNumber"></label>
+        <input asp-for="SerialNumber" readonly class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="InventoryNumber"></label>
+        <input asp-for="InventoryNumber" readonly class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Manufacturer"></label>
+        <input asp-for="Manufacturer" readonly class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description" readonly class="form-control"></textarea>
+    </div>
+    <div class="form-group">
+        <label asp-for="Quantity"></label>
+        <input asp-for="Quantity" readonly class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="MachineInventoryNumber"></label>
+        <input asp-for="MachineInventoryNumber" readonly class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="UserLastName"></label>
+        <input asp-for="UserLastName" readonly class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="CreatedOn"></label>
+        <time datetime="@Model.CreatedOn.ToString("O")" readonly class="form-control"></time>
+    </div>
+</div>
+
+<div class="text-center">
+    <button type="button" class="btn btn-primary" onclick="showIncreasetForm()">Increase Quantity</button>
+
+    <a href="/SparePart/SparePartHome">
+        <input type="submit" value="Back" class="btn btn-secondary" />
+    </a>
+    @if (currentUser.Id == Model.UserId)
+    {
+        <a href="/SparePart/Edit/@Model.Id">
+            <input type="submit" value="Edit" class="btn btn-warning" />
+        </a>
+
+        <a href="/SparePart/Delete/@Model.Id">
+            <input type="submit" value="Delete" class="btn btn-danger" />
+        </a>
+    }
+
+</div>
+
+<div class="text-center" id="increase" style="display: none">
+    <div>
+        <form name="increaseForm" asp-controller="SparePart" asp-action="IncreaseQuantity" onsubmit="return validateForm()" method="post"
+              enctype="multipart/form-data">
+
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="form-group">
+                <label>Quantity (Must be greater than zero)</label>
+                <input type="number" name="quantity" class="form-control" />
+                <span class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" name="id" class="form-control" value="@Model.Id" />
+            </div>
+            <input type="submit" value="Increase" class="btn btn-success" />
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function showIncreasetForm() {
+
+            let incrForm = document.getElementById("increase");
+
+            if (incrForm.style.display == "block") {
+                incrForm.style.display = "none";
+            }
+            else {
+                incrForm.style.display = "block";
+            }
+
+            incrForm.scrollIntoView();
+        }
+
+        function validateForm() {
+            var x = document.forms["increaseForm"]["quantity"][0].value;
+            if (x < 1) {
+                alert("Number must be positive");
+                return false;
+            }
+        }
+    </script>
+}
+

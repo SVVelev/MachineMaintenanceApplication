@@ -1,0 +1,64 @@
+﻿@using MachineMaintenanceApp.Web.ViewModels.Machines.Edit
+@model EditMachineInputViewModel
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1 class="text-center">Edit machine</h1>
+<hr />
+<div class="text-center">
+    <div>
+        <form asp-controller="Machine" asp-action="Edit" method="post"
+              enctype="multipart/form-data">
+
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Model"></label>
+                <input asp-for="Model" class="form-control" />
+                <span asp-validation-for="Model" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Manufacturer"></label>
+                <input asp-for="Manufacturer" class="form-control" />
+                <span asp-validation-for="Manufacturer" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ManufactureYear"></label>
+                <input asp-for="ManufactureYear" class="form-control" />
+                <span asp-validation-for="ManufactureYear" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SerialNumber"></label>
+                <input asp-for="SerialNumber" class="form-control" />
+                <span asp-validation-for="SerialNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InventoryNumber"></label>
+                <input asp-for="InventoryNumber" class="form-control" />
+                <span asp-validation-for="InventoryNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageUrl"></label>
+                <input asp-for="ImageUrl" class="form-control" />
+                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description"></label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <input type="submit" value="Edit" class="btn btn-success" />
+        </form>
+        <br />
+        <a href="/Machine/Details/@Model.Id">
+            <input type="submit" value="Cancel" class="btn btn-secondary" />
+        </a>
+    </div>
+</div>
+
+
+
+
+

@@ -1,0 +1,66 @@
+﻿@using MachineMaintenanceApp.Web.ViewModels.Administration.UnplannedRepairs.Details
+@using MachineMaintenanceApp.Data.Common.Helpers
+@using MachineMaintenanceApp.Data.Models.Enums
+@model AdminUnplannedRepairsDetailsViewModel
+@{
+    ViewData["Title"] = "Details";
+
+    var myEnum = EnumHelper<RepairType>.GetDisplayValue(Model.Type);
+}
+
+<h1 class="text-center">Details</h1>
+<hr />
+<div>
+    <div class="form-group">
+        <label asp-for="Type"></label>
+        <input value="@myEnum" readonly class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="StartTime"></label>
+        <time datetime="@Model.StartTime.ToString("O")" readonly class="form-control"></time>
+    </div>
+    <div class="form-group">
+        <label asp-for="EndTime"></label>
+        <time datetime="@Model.EndTime.ToString("O")" readonly class="form-control"></time>
+    </div>
+    <div class="form-group">
+        <label asp-for="MachineInventoryNumber"></label>
+        <input asp-for="MachineInventoryNumber" readonly class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="UserLastName"></label>
+        <input asp-for="UserLastName" readonly class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="PartNumber"></label>
+        <input asp-for="PartNumber" readonly class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description" readonly class="form-control"></textarea>
+    </div>
+    <div class="text-center">
+        <a href="/Administration/UnplannedRepair/UnplannedRepairsPage/@Model.MachineId">
+            <input type="submit" value="Back" class="btn btn-secondary" />
+        </a>
+        @if (Model.IsDeleted == true)
+        {
+            <a href="/Administration/UnplannedRepair/Undelete/@Model.Id">
+                <input type="submit" value="Undelete" class="btn btn-success" />
+            </a>
+        }
+        else
+        {
+            <a href="/Administration/UnplannedRepair/Delete/@Model.Id">
+                <input type="submit" value="Delete" class="btn btn-danger" />
+            </a>
+
+            <a href="/Administration/UnplannedRepair/Edit/@Model.Id">
+                <input type="submit" value="Edit" class="btn btn-warning" />
+            </a>
+        }
+    </div>
+</div>
+
+
+

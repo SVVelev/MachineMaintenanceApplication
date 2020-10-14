@@ -1,0 +1,88 @@
+﻿@using MachineMaintenanceApp.Web.ViewModels.Administration.Machines.Details
+@model AdminMachinesDetailViewModel
+@{
+    ViewData["Title"] = "Details";
+
+}
+    <div>
+        <div class="form-group text-center">
+            <img src="@Model.ImageUrl" height="500" width="700" alt="">
+        </div>
+        <div class="form-group">
+            <label asp-for="Model"></label>
+            <input asp-for="Model" readonly class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Manufacturer"></label>
+            <input asp-for="Manufacturer" readonly class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="ManufactureYear"></label>
+            <input asp-for="ManufactureYear" readonly class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="SerialNumber"></label>
+            <input asp-for="SerialNumber" readonly class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="InventoryNumber"></label>
+            <input asp-for="InventoryNumber" readonly class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Description"></label>
+            <textarea asp-for="Description" readonly class="form-control"></textarea>
+        </div>
+        <div class="form-group">
+            <label asp-for="UserLastName"></label>
+            <input asp-for="UserLastName" readonly class="form-control"></input>
+        </div>
+        <div class="form-group">
+            <label asp-for="CreatedOn"></label>
+            <time datetime="@Model.CreatedOn.ToString("O")" readonly class="form-control"></time>
+        </div>
+
+    </div>
+<br />
+<div class="text-center">
+    <a href="/Administration/Machine/MachinesPage/@Model.UserCompanyId">
+        <input type="submit" value="Back" class="btn btn-secondary" />
+    </a>
+    @if (Model.IsDeleted == true)
+    {
+        <a href="/Administration/Machine/Undelete/@Model.Id">
+            <input type="submit" value="Undelete" class="btn btn-success" />
+        </a>
+    }
+    else
+    {
+        <a href="/Administration/Machine/Delete/@Model.Id">
+            <input type="submit" value="Delete" class="btn btn-danger" />
+        </a>
+
+        <a href="/Administration/Machine/Edit/@Model.Id">
+            <input type="submit" value="Edit" class="btn btn-warning" />
+        </a>
+
+        <a href="/Administration/DailyCheck/DailyChecksPage/@Model.Id">
+            <input type="submit" value="Daily Checks" class="btn btn-primary" />
+        </a>
+
+        <a href="/Administration/WeeklyCheck/WeeklyChecksPage/@Model.Id">
+            <input type="submit" value="Weekly Checks" class="btn btn-primary" />
+        </a>
+
+        <a href="/Administration/PlannedRepair/PlannedRepairsPage/@Model.Id">
+            <input type="submit" value="Planned Repairs" class="btn btn-primary" />
+        </a>
+
+
+        <a href="/Administration/UnplannedRepair/UnplannedRepairsPage/@Model.Id">
+            <input type="submit" value="Unplanned Repairs" class="btn btn-primary" />
+        </a>
+    }
+
+
+</div>
+
+
+

@@ -1,0 +1,100 @@
+﻿@using  MachineMaintenanceApp.Web.ViewModels.Machines.Details
+@using MachineMaintenanceApp.Data.Models
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> userManager
+@model MachineDetailsViewModel
+@{
+    ViewData["Title"] = "Details";
+
+    ApplicationUser currentUser = await this.userManager.GetUserAsync(this.User);
+}
+    <div>
+        <div class="form-group text-center">
+            <img src="@Model.ImageUrl" height="500" width="700" class="img-fluid">
+        </div>
+        <div class="form-group">
+            <label asp-for="Model"></label>
+            <input asp-for="Model" readonly class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Manufacturer"></label>
+            <input asp-for="Manufacturer" readonly class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="ManufactureYear"></label>
+            <input asp-for="ManufactureYear" readonly class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="SerialNumber"></label>
+            <input asp-for="SerialNumber" readonly class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="InventoryNumber"></label>
+            <input asp-for="InventoryNumber" readonly class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Description"></label>
+            <textarea asp-for="Description" readonly class="form-control"></textarea>
+        </div>
+        <div class="form-group">
+            <label asp-for="CreatedOn"></label>
+            <time datetime="@Model.CreatedOn.ToString("O")" readonly class="form-control"></time>
+        </div>
+        <div class="form-group">
+            <label asp-for="UserLastName"></label>
+            <input asp-for="UserLastName" readonly class="form-control"></input>
+        </div>
+        <div class="form-group">
+            <a asp-controller="PlannedRepairs" asp-action="PlannedRepairsPage" asp-route-id="@Model.Id">Planned Repairs</a>
+            <input asp-for="PlannedRepairsCount" readonly class="form-control" />
+        </div>
+        <div class="form-group">
+            <a asp-controller="UnplannedRepairs" asp-action="UnplannedRepairsPage" asp-route-id="@Model.Id">Unplanned Repairs</a>
+            <input asp-for="UnplannedRepairsCount" readonly class="form-control" />
+        </div>
+        <div class="form-group">
+            <a asp-controller="DailyCheck" asp-action="DailyChecksPage" asp-route-id="@Model.Id">Daily Checks</a>
+            <input asp-for="DailyChecksCount" readonly class="form-control" />
+        </div>
+        <div class="form-group">
+            <a asp-controller="WeeklyCheck" asp-action="WeeklyChecksPage" asp-route-id="@Model.Id">Weekly Checks</a>
+            <input asp-for="WeeklyChecksCount" readonly class="form-control" />
+        </div>
+        <div class="form-group">
+            <a asp-controller="SparePart" asp-action="SparePartHomeMachine" asp-route-id="@Model.Id">Spare Parts</a>
+            <input asp-for="SparePartsCount" readonly class="form-control" />
+        </div>
+
+        <div class="text-center">
+            <a href="/DailyCheck/Create/@Model.Id">
+                <input type="submit" value="Create Daily Check" class="btn btn-primary" />
+            </a>
+
+            <a href="/WeeklyCheck/Create/@Model.Id">
+                <input type="submit" value="Create Weekly Check" class="btn btn-primary" />
+            </a>
+            <a href="/PlannedRepairs/Create/@Model.Id">
+                <input type="submit" value="Create Planned Repair" class="btn btn-primary" />
+            </a>
+            <a href="/UnplannedRepairs/Create/@Model.Id">
+                <input type="submit" value="Create Unplanned Repair" class="btn btn-primary" />
+            </a>
+
+        </div>
+    </div>
+<br />
+<div class="text-center">
+    <a href="/">
+        <input type="submit" value="Back" class="btn btn-secondary" />
+    </a>
+
+    @if (currentUser.Id == Model.UserId)
+    {
+        <a href="/Machine/Edit/@Model.Id">
+            <input type="submit" value="Edit" class="btn btn-warning" />
+        </a>
+        <a href="/Machine/Delete/@Model.Id">
+            <input type="submit" value="Delete" class="btn btn-danger" />
+        </a>
+    }
+</div>

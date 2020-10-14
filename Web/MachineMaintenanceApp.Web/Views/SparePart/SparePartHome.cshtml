@@ -1,0 +1,99 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@using MachineMaintenanceApp.Data.Models
+@using MachineMaintenanceApp.Web.ViewModels.SpareParts.SparePartsHomePage
+@model HomeSpareViewModel
+
+@{
+    ViewData["Title"] = "SparePartsPage";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Spare Parts</h1>
+</div>
+<hr />
+
+@if (this.SignInManager.IsSignedIn(this.User))
+{
+    <div style="padding: 5%;">
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Inventory Number</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Machine</th>
+                    <th scope="col">Type</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var part in Model.SpareParts)
+                {
+                    <tr>
+                        <th scope="row">@part.InventoryNumber</th>
+                        <td scope="row">@part.Quantity</td>
+                        <td scope="row">@part.MachineInventoryNumber</td>
+                        <td scope="row">@part.Type</td>
+                        <td scope="row"><a asp-controller="SparePart" asp-action="Details" asp-route-id="@part.Id">Details</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+<nav>
+    <ul class="pagination justify-content-center">
+        @if (this.Model.CurrentPage == 1)
+        {
+<li class="page-item disabled">
+    <a class="page-link" href="#">Previous</a>
+</li> }
+            else
+            {
+<li class="page-item">
+    <a class="page-link"
+       asp-controller="SparePart"
+       asp-action="SparePartHome"
+       asp-route-page="@(this.Model.CurrentPage - 1)">Previous</a>
+</li>}
+
+        @for (int i = 1; i <= this.Model.PagesCount; i++)
+        {
+            var active = i == this.Model.CurrentPage ? "active" : string.Empty;
+<li class="page-item @active">
+    <a class="page-link"
+       asp-controller="SparePart"
+       asp-action="SparePartHome"
+       asp-route-page="@i">@i</a>
+</li>}
+
+        @if (this.Model.CurrentPage == this.Model.PagesCount)
+        {
+<li class="page-item disabled">
+    <a class="page-link" href="#">Next</a>
+</li> }
+            else
+            {
+<li class="page-item">
+    <a class="page-link"
+       asp-controller="SparePart"
+       asp-action="SparePartHome"
+       asp-route-page="@(this.Model.CurrentPage + 1)">Next</a>
+</li>}
+    </ul>
+</nav>
+
+<div class="text-center">
+    <a href="/SparePart/Create">
+        <input type="submit" value="Create Spare Part" class="btn btn-primary" />
+    </a>
+
+    <a href="/">
+        <input type="submit" value="Return" class="btn btn-secondary" />
+    </a>
+</div>
+
+
+
+

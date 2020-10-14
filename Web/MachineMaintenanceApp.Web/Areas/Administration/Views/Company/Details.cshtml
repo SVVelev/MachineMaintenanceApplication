@@ -1,0 +1,70 @@
+﻿@using MachineMaintenanceApp.Web.ViewModels.Administration.Companies.Details
+@model AdminDetailsCompanyViewModel
+@{
+    ViewData["Title"] = "Details";
+
+}
+    <div>
+        <div class="form-group text-center">
+            <img src="@Model.Logo" height="500" width="700" alt="">
+        </div>
+        <div class="form-group">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" readonly class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Description"></label>
+            <input asp-for="Description" readonly class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="CreatedOn"></label>
+            <time datetime="@Model.CreatedOn.ToString("O")" readonly class="form-control"></time>
+        </div>
+        @if (Model.IsDeleted == true)
+        {
+            <div class="form-group">
+                <label asp-for="UsersCount"></label>
+                <input asp-for="UsersCount" readonly class="form-control" />
+            </div>
+        }
+        else
+        {
+            <div class="form-group">
+                <a asp-area="Administration" asp-controller="User" asp-action="UsersPage" asp-route-id="@Model.Id">Users</a>
+                <input asp-for="UsersCount" readonly class="form-control" />
+            </div>
+        }
+
+    </div>
+<br />
+<div class="text-center">
+    <a href="/Administration/Home">
+        <input type="submit" value="Back" class="btn btn-secondary" />
+    </a>
+
+    <a href="/Administration/Company/Edit/@Model.Id">
+        <input type="submit" value="Edit" class="btn btn-warning" />
+    </a>
+    @if (Model.IsDeleted == true)
+    {
+        <a href="/Administration/Company/Undelete/@Model.Id">
+            <input type="submit" value="Undelete" class="btn btn-success" />
+        </a>
+    }
+    else
+    {
+        <a href="/Administration/Company/Delete/@Model.Id">
+            <input type="submit" value="Delete" class="btn btn-danger" />
+        </a>
+
+        <a href="/Administration/Machine/MachinesPage/@Model.Id">
+            <input type="submit" value="Machines" class="btn btn-primary" />
+        </a>
+
+        <a href="/Administration/SparePart/SparePartsPage/@Model.Id">
+            <input type="submit" value="SpareParts" class="btn btn-primary" />
+        </a>
+    }
+
+</div>
+

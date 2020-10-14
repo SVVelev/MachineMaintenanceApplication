@@ -1,0 +1,42 @@
+﻿@using MachineMaintenanceApp.Common
+@using Microsoft.AspNetCore.Identity
+@using MachineMaintenanceApp.Data.Models
+@using MachineMaintenanceApp.Web.ViewModels.Home
+@inject SignInManager<ApplicationUser> SignInManager
+@model IndexViewModel
+@{
+    this.ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
+</div>
+<hr />
+
+@if (this.SignInManager.IsSignedIn(this.User))
+{
+<div class="row">
+    @foreach (var machine in Model.Machines)
+    {
+        <div class="col-md-4 media">
+            <img src="@machine.ImageUrl" width="100" class="mr-3" alt="@machine.Model">
+            <div class="media-body">
+                <h5 class="mt-0">
+                    <a href="Machine/Details/@machine.Id">
+                        @machine.InventoryNumber
+                    </a>
+                </h5>
+                @machine.Manufacturer
+                @machine.Model
+            </div>
+        </div>
+    }
+</div>
+    <br />
+
+    <div class="text-center">
+        <a href="/Machine/Create">
+            <input type="submit" value="Create Machine" class="btn btn-primary" />
+        </a>
+    </div>
+}

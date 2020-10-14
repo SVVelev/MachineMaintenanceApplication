@@ -1,0 +1,76 @@
+﻿@using MachineMaintenanceApp.Web.ViewModels.Machines.Create
+@model CreateMachineInputModel
+@{
+    if (this.ViewData.Count > 0)
+    {
+        this.Model.Model = this.ViewData["model"].ToString();
+        this.Model.Manufacturer = this.ViewData["manufacturer"].ToString();
+        this.Model.ManufactureYear = this.ViewData["manufactureYear"].ToString();
+        this.Model.SerialNumber = this.ViewData["serialNumber"].ToString();
+        this.Model.InventoryNumber = this.ViewData["inventoryNumber"].ToString();
+        this.Model.Description = this.ViewData["description"].ToString();
+        this.Model.ImageUrl = this.ViewData["imageUrl"].ToString();
+    }
+    ViewData["Title"] = "Create";
+
+}
+
+<h1 class="text-center">Create new machine</h1>
+<hr />
+<div class="text-center">
+    <div>
+        <form asp-controller="Machine" asp-action="Create" method="post"
+              enctype="multipart/form-data">
+
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Model"></label>
+                <input id="model" asp-for="Model" class="form-control" />
+                <span asp-validation-for="Model" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Manufacturer"></label>
+                <input id="manufacture" asp-for="Manufacturer" class="form-control" />
+                <span asp-validation-for="Manufacturer" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ManufactureYear"></label>
+                <input id="manufactureYear" asp-for="ManufactureYear" class="form-control" />
+                <span asp-validation-for="ManufactureYear" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SerialNumber"></label>
+                <input id="serialNumber" asp-for="SerialNumber" class="form-control" />
+                <span asp-validation-for="SerialNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InventoryNumber"></label>
+                <input id="inventoryNumber" asp-for="InventoryNumber" class="form-control" />
+                <span asp-validation-for="InventoryNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description"></label>
+                <textarea id="description" asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group" type="hidden">
+                <label type="hidden" asp-for="ImageUrl"></label>
+                <input type="hidden" asp-for="ImageUrl" class="form-control" />
+                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+            </div>
+
+            <hr />
+            <input type="submit" value="Create" class="btn btn-success" />
+        </form>
+
+        <br />
+        <a href="/">
+            <input type="submit" value="Cancel" class="btn btn-secondary" />
+        </a>
+    </div>
+</div>
+
+
+
+

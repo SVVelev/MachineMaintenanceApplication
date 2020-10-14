@@ -1,0 +1,45 @@
+﻿@using MachineMaintenanceApp.Web.ViewModels.Administration.Companies.Create
+@using MachineMaintenanceApp.Data.Models.Enums
+@model AdminCreateCompanyInputViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create company</h1>
+<hr />
+<div class="text-center">
+    <div>
+        <form asp-area="Administration" asp-controller="Company" asp-action="Create" method="post"
+              enctype="multipart/form-data">
+
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Logo"></label>
+                <input asp-for="Logo" class="form-control" />
+                <span asp-validation-for="Logo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description"></label>
+                <input type="text" asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <input type="submit" value="Create" class="btn btn-success" />
+        </form>
+        <br />
+    </div>
+    <div>
+        <a href="/Administration/Home/Index">
+            <input type="submit" value="Cancel" class="btn btn-secondary" />
+        </a>
+    </div>
+</div>
+
+
