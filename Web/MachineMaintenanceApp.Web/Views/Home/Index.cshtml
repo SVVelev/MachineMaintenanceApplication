@@ -15,23 +15,23 @@
 
 @if (this.SignInManager.IsSignedIn(this.User))
 {
-<div class="row">
-    @foreach (var machine in Model.Machines)
-    {
-        <div class="col-md-4 media">
-            <img src="@machine.ImageUrl" width="100" class="mr-3" alt="@machine.Model">
-            <div class="media-body">
-                <h5 class="mt-0">
-                    <a href="Machine/Details/@machine.Id">
-                        @machine.InventoryNumber
-                    </a>
-                </h5>
-                @machine.Manufacturer
-                @machine.Model
+    <div class="row">
+        @foreach (var machine in Model.Machines)
+        {
+            <div class="col-md-4 media">
+                <img src="@machine.ImageUrl" width="100" class="mr-3" alt="@machine.Model">
+                <div class="media-body">
+                    <h5 class="mt-0">
+                        <a href="Machine/Details/@machine.Id">
+                            @machine.InventoryNumber
+                        </a>
+                    </h5>
+                    @machine.Manufacturer
+                    @machine.Model
+                </div>
             </div>
-        </div>
-    }
-</div>
+        }
+    </div>
     <br />
 
     <div class="text-center">
@@ -39,4 +39,11 @@
             <input type="submit" value="Create Machine" class="btn btn-primary" />
         </a>
     </div>
+}
+else
+{
+    <section class="py-5"
+             style="background-image: url('https://www.plantengineering.com/wp-content/uploads/sites/4/2016/06/PE1606_PE_Web_IMg_IoT_Trends_MSIData.jpg'); background-repeat: no-repeat; background-position: center">
+        <div style="height: 30vh;"></div>
+    </section>
 }

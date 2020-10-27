@@ -73,6 +73,7 @@ namespace MachineMaintenanceApp.Web.Areas.Identity.Pages.Account.Manage
 
             var deletedUserCompanyId = await this.userService.DeleteAsync(user.Id);
             var userId = await _userManager.GetUserIdAsync(user);
+
             if (deletedUserCompanyId == null)
             {
                 throw new InvalidOperationException($"Unexpected error occurred deleting user with ID '{userId}'.");
